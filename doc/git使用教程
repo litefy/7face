@@ -1,0 +1,83 @@
+Git快速入门
+
+本主题负责人：潘魏增 panweizeng@meituan.com
+
+如果还没有Git帐号，请先找各小组负责人开通，或者参考跳板机使用Q&A
+
+以下教程假设你已经知道如何在系统打开终端窗口，并知道如何输入Shell命令。现在打开终端，然后继续。
+
+初始设置
+在提交代码之前必须设置自己的用户名和email
+
+git config --global user.name "panweizeng" # panweizeng换成自己名字的拼音，注意中间不要有空格
+git config --global user.email panweizeng@meituan.com
+基本命令
+熟悉SVN的同学请先参考 http://git-scm.com/course/svn.html
+
+克隆代码库
+git clone git@git.sankuai.com:www # 其中www是要克隆的版本库，其它如mining, stat, mtpay等。美团的代码库暂时不是全开放的，需要申请访问权限。
+git clone git@git.sankuai.com:www mt # mt是指定克隆到的目录名，其他和上一个命令一样
+更新代码库到最新版本
+git pull
+查看工作区状态
+git status
+提交代码到本地仓库
+git add template/deal/default.php # 添加文件到暂存区
+git commit -m "update deal ui"
+推送到远程仓库
+git pull # 更新代码库到最新版本
+git push # 开始推送
+git push origin master # 对新建远程仓库的第一次推送，需要指定主分支名master
+暂存区操作
+git add template/deal/default.php # 提交文件到暂存区
+git reset HEAD template/deal/default.php # 删除暂存区中的文件
+查看代码改动
+git diff # 查看工作区与暂存区的文件差异
+git diff --cached # 查看暂存区与最后一次本地提交的文件差异
+git diff HEAD # 工作区与最后一次本地提交之间的差异
+git diff origin # 工作区与本地仓库原始版本比较
+查看提交记录
+git log  # 查看默认格式的提交记录
+git log -5 # 查看最近5条提交记录
+git log -p # 查看提交记录并显示代码改动内容
+git log -p --author=panweizeng # 查看panweizeng的提交记录并显示代码改动内容
+git log --since=2011-05-24 --until=2011-05-25  # 查看从2011-05-24到2011-05-25的提交
+git log --name-only # 只显示文件名
+git log --pretty=oneline # 只显示一行
+git log --pretty=format:%h:%s # 自定义格式
+git log --graph # 图形化查看
+#也可以使用fisheye工具来查看 - http://task.sankuai.com/code/
+文件操作
+git checkout file # 检出最后一次提交的文件覆盖当前文件，或者说放弃当前文件的修改
+git rm file # 删除文件
+git mv file1 file2 # 移动或者重命名文件
+查看命令帮助
+git help command # command是对应的git命令
+git help diff # 查看diff命令的帮助
+git help branch # 查看branch命令的帮助
+分支和合并命令
+创建分支
+git branch hotfix # 方法1，直接从当前分支创建hotfix分支
+git checkout -b hotfix # 方法2，从当前分支创建hotfix分支，并切换到hotfix分支
+git checkout -b hotfix master # 方法3，从master分支创建hotfix分支，并切换到hotfix分支
+切换分支
+git checkout hotfix # 切换到hotfix分支
+git checkout master # 切换到master分支
+分支合并
+git merge hotfix # 合并hotfix分支到当前分支，使当前分支拥有hotfix分支的改动
+git merge hotfix --squash # 合并hotfix分支到当前分支，但将分支上的提交压缩，然后手工提交变成一次提交。
+git merge origin/master # 合并远程的master分支到当前分支
+分支管理
+git branch # 查看所有的分支，带＊号的是当前所在分支
+git branch -d hotfix # 删除hotfix分支
+git branch -D hotfix # 强制删除hotfix分支
+git branch --merged # 查看与当前分支合并过的分支，只要合并过的分支即使删掉也不用担心
+git branch --no-merged # 查看与当前分支没有合并过的分支
+远程分支
+git push origin abc  # 将本地分支abc保存到远程
+git push origin :abc # 将远程分支abc删除
+git branch -a #查看目录下的所有分支
+# 在www仓库约定只有以自己名字开头的分支才能新增和删除，比如对于panweizeng来说
+git push origin panweizeng/abc # OK
+git push origin fudongping/abc # FAIL
+

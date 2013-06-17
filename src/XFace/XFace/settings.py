@@ -1,5 +1,11 @@
 # Django settings for XFace project.
 
+import os
+import sys
+
+PROJECT_ROOT = os.path.dirname(__file__)
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'apps'))
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -121,9 +127,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
+    'django.contrib.admindocs',
+    'apps.login',
 )
 
 # A sample logging configuration. The only tangible logging
